@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -91,6 +90,36 @@ public class HomeScreen {
         form.getChildren().addAll(labelId, id, labelName, name, labelEmail, email, labelDeposit, deposit, submit);
 
         content.getChildren().addAll(logoView, title, form);
+
+        // button action
+        submit.setOnAction(e -> {
+
+            // validate form
+            if (id.getText().isEmpty() || name.getText().isEmpty() || email.getText().isEmpty() || deposit.getText().isEmpty()) {
+                return;
+            }
+
+            // check if id is a number
+            try {
+                Integer.parseInt(id.getText());
+            } catch (NumberFormatException ex) {
+                return;
+            }
+
+            // check if email is valid syntax
+            if (!email.getText().contains("@")) {
+                return;
+            }
+
+            // check if deposit is a number
+            try {
+                Integer.parseInt(deposit.getText());
+            } catch (NumberFormatException ex) {
+                return;
+            }
+
+            HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+        });
 
         return content;
     }
