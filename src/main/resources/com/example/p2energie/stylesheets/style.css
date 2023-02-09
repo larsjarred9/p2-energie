@@ -1,0 +1,13 @@
+#container {
+    -fx-background-color: #222A31;
+    -fx-font-family: 'Montserrat';
+    -fx-font-weight: 300;
+}
+
+.button {
+    -fx-background-color: #FF4350;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-family: 'Montserrat';
+    -fx-font-weight: 300;
+}
