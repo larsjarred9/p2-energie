@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 
 public class HelloApplication extends javafx.application.Application {
 
-    private static Stage mainStage;
+    public static Stage mainStage;
 
     public static int[] applicationSize = {1200, 650};
 
@@ -16,7 +16,7 @@ public class HelloApplication extends javafx.application.Application {
         mainStage.setWidth(applicationSize[0]);
         mainStage.setHeight(applicationSize[1]);
         mainStage.setResizable(false);
-        mainStage.setTitle("Energy Management");
+        mainStage.setTitle("van de bron - Energy Management ");
 
         mainStage.setScene(new HomeScreen().getHomeScene());
         mainStage.show();
