@@ -28,7 +28,6 @@ public class HomeScreen {
         homeScene = new Scene(container);
         homeScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900");
         homeScene.getStylesheets().add(HelloApplication.class.getResource("stylesheets/style.css").toString());
-        homeScene.getStylesheets().add(HelloApplication.class.getResource("stylesheets/home.css").toString());
     }
 
     /**
