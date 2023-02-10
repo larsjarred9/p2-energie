@@ -2,7 +2,12 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -18,7 +23,7 @@ public class EnergyScreen {
         Pane container = new Pane();
         container.setId("container");
 
-        container.getChildren().addAll(getHeader());
+        container.getChildren().addAll(getHeader(), getContent());
 
         energyScene = new Scene(container);
         energyScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900");
@@ -31,6 +36,49 @@ public class EnergyScreen {
      */
     public Scene getEnergyScene() {
         return energyScene;
+    }
+
+    public Pane getContent() {
+        FlowPane content = new FlowPane();
+        content.setId("gasform");
+        content.setPadding(new Insets(30, 15, 0, 15));
+        content.relocate(325, 100);
+        content.setStyle("-fx-background-color: white;");
+        content.setAlignment(Pos.CENTER);
+
+        Text title = new Text("Voer uw stroomtarief in");
+
+        // form
+        FlowPane form = new FlowPane();
+        form.setId("form");
+        form.setOrientation(Orientation.VERTICAL);
+        form.setVgap(20);
+        form.setAlignment(Pos.CENTER);
+
+        Label energyPrice = new Label("Prijs per KWh");
+        TextField energyPriceInput = new TextField();
+        energyPriceInput.setPrefWidth(300);
+
+        Label startDate = new Label("Start datum");
+        TextField startDateInput = new TextField();
+        startDateInput.setPrefWidth(300);
+
+        Label endDate = new Label("Eind datum");
+        TextField endDateInput = new TextField();
+        endDateInput.setPrefWidth(300);
+
+        // button
+        Button submit = new Button("Gegevens toevoegen →");
+
+
+
+        form.getChildren().addAll(energyPrice, energyPriceInput, startDate, startDateInput, endDate, endDateInput, submit);
+
+        content.getChildren().addAll(title, form);
+
+
+
+        return content;
     }
 
     public Pane getHeader() {
