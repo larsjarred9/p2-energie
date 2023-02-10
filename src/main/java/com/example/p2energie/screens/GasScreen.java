@@ -105,6 +105,7 @@ public class GasScreen {
         Text home = new Text("Dashboard");
         Text gas = new Text("Gas");
         Text stroom = new Text("Stroom");
+        Text usage = new Text("Verbruik");
         Text logout = new Text("Uitloggen");
 
         // add margin to navigation items
@@ -112,6 +113,7 @@ public class GasScreen {
         FlowPane.setMargin(home, new Insets(0, 20, 0, 0));
         FlowPane.setMargin(gas, new Insets(0, 20, 0, 0));
         FlowPane.setMargin(stroom, new Insets(0, 20, 0, 0));
+        FlowPane.setMargin(usage, new Insets(0, 20, 0, 0));
         FlowPane.setMargin(logout, new Insets(0, 20, 0, 0));
 
         // Make current page text bold
@@ -132,6 +134,11 @@ public class GasScreen {
             HelloApplication.mainStage.setScene(new EnergyScreen().getEnergyScene());
         });
 
+        // When click on usage
+        usage.setOnMouseClicked(e -> {
+            HelloApplication.mainStage.setScene(new UsageScreen().getUsageScene());
+        });
+
         // when click on logout text
         logout.setOnMouseClicked(e -> {
             HelloApplication.mainStage.setScene(new HomeScreen().getHomeScene());
@@ -139,7 +146,7 @@ public class GasScreen {
 
 
         // add navigation items to navigation bar
-        navigation.getChildren().addAll(logoView, home, gas, stroom, logout);
+        navigation.getChildren().addAll(logoView, home, gas, stroom, usage, logout);
 
         header.getChildren().addAll(navigation);
 

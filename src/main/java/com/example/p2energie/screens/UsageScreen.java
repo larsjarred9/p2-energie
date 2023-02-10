@@ -2,69 +2,85 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class DashboardScreen {
+public class UsageScreen {
 
+    private final Scene usageScene;
 
-
-    private final Scene dashboardScene;
-
-    public DashboardScreen() {
+    public UsageScreen() {
         Pane container = new Pane();
         container.setId("container");
 
         container.getChildren().addAll(getHeader(), getContent());
 
-        dashboardScene = new Scene(container);
-        dashboardScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900");
-        dashboardScene.getStylesheets().add(HelloApplication.class.getResource("stylesheets/style.css").toString());
+        usageScene = new Scene(container);
+        usageScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900");
+        usageScene.getStylesheets().add(HelloApplication.class.getResource("stylesheets/style.css").toString());
     }
 
     /**
      * Get the dashboard scene
      * @return Scene
      */
-    public Scene getDashboardScene() {
-        return dashboardScene;
+    public Scene getUsageScene() {
+        return usageScene;
     }
 
     public Pane getContent() {
         FlowPane content = new FlowPane();
-        content.setId("dashboard");
-        content.setPadding(new Insets(50, 25, 50, 25));
+        content.setId("gasform");
+        content.setPadding(new Insets(30, 15, 0, 15));
         content.relocate(325, 100);
         content.setStyle("-fx-background-color: white;");
+        content.setAlignment(Pos.CENTER);
 
-        // Table JavaFX
+        Text title = new Text("Voer uw verbruik in");
 
-        TableView table = new TableView();
-        table.setPrefSize(550, 300);
+        // form
+        FlowPane form = new FlowPane();
+        form.setId("form");
+        form.setOrientation(Orientation.VERTICAL);
+        form.setVgap(20);
+        form.setAlignment(Pos.CENTER);
 
-        table.setEditable(true);
+        Label energyAmount = new Label("Stroom in KWh");
+        TextField energyAmountInput = new TextField();
+        energyAmountInput.setPrefWidth(300);
 
-        TableColumn energyUsage = new TableColumn("Stroomverbruik kWh");
-        TableColumn gasUsage = new TableColumn("Gasverbuik m3");
-        TableColumn startPeriod = new TableColumn("Begin Datum");
-        TableColumn endPeriod = new TableColumn("Eind Datum");
-
-        // give colums a width
-        energyUsage.setPrefWidth(150);
-        gasUsage.setPrefWidth(150);
-        startPeriod.setPrefWidth(125);
-        endPeriod.setPrefWidth(125);
+        Label gasAmount = new Label("Gas in m3");
+        TextField gasAmountInput = new TextField();
+        gasAmountInput.setPrefWidth(300);
 
 
-        table.getColumns().addAll(energyUsage, gasUsage, startPeriod, endPeriod);
+        Label startDate = new Label("Start datum");
+        TextField startDateInput = new TextField();
+        startDateInput.setPrefWidth(300);
 
-        content.getChildren().add(table);
+        Label endDate = new Label("Eind datum");
+        TextField endDateInput = new TextField();
+        endDateInput.setPrefWidth(300);
+
+        // button
+        Button submit = new Button("Gegevens toevoegen →");
+
+
+
+        form.getChildren().addAll(energyAmount, energyAmountInput, gasAmount, gasAmountInput, startDate, startDateInput, endDate, endDateInput, submit);
+
+        content.getChildren().addAll(title, form);
+
+
 
         return content;
     }
@@ -106,7 +122,7 @@ public class DashboardScreen {
         FlowPane.setMargin(logout, new Insets(0, 20, 0, 0));
 
         // Make current page text bold
-        home.setStyle("-fx-font-weight: bold;");
+        usage.setStyle("-fx-font-weight: bold;");
 
         // when click on dasboard text
         home.setOnMouseClicked(e -> {
@@ -142,4 +158,3 @@ public class DashboardScreen {
         return header;
     }
 }
-
