@@ -21,7 +21,7 @@ public class DashboardScreen {
         Pane container = new Pane();
         container.setId("container");
 
-        container.getChildren().addAll(getHeader());
+        container.getChildren().addAll(getHeader(), getContent());
 
         dashboardScene = new Scene(container);
         dashboardScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900");
@@ -34,6 +34,39 @@ public class DashboardScreen {
      */
     public Scene getDashboardScene() {
         return dashboardScene;
+    }
+
+    public Pane getContent() {
+        FlowPane content = new FlowPane();
+        content.setId("dashboard");
+        content.setPadding(new Insets(50, 25, 50, 25));
+        content.relocate(325, 100);
+        content.setStyle("-fx-background-color: white;");
+
+        // Table JavaFX
+
+        TableView table = new TableView();
+        table.setPrefSize(550, 300);
+
+        table.setEditable(true);
+
+        TableColumn energyUsage = new TableColumn("Stroomverbruik kWh");
+        TableColumn gasUsage = new TableColumn("Gasverbuik m3");
+        TableColumn startPeriod = new TableColumn("Begin Datum");
+        TableColumn endPeriod = new TableColumn("Eind Datum");
+
+        // give colums a width
+        energyUsage.setPrefWidth(150);
+        gasUsage.setPrefWidth(150);
+        startPeriod.setPrefWidth(125);
+        endPeriod.setPrefWidth(125);
+
+
+        table.getColumns().addAll(energyUsage, gasUsage, startPeriod, endPeriod);
+
+        content.getChildren().add(table);
+
+        return content;
     }
 
     public Pane getHeader() {
