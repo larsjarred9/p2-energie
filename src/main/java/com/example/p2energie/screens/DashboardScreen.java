@@ -3,6 +3,7 @@ package com.example.p2energie.screens;
 import com.example.p2energie.HelloApplication;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -43,10 +44,33 @@ public class DashboardScreen {
         content.relocate(325, 100);
         content.setStyle("-fx-background-color: white;");
 
+        // Flowpane with 3 buttons week, maand, jaar
+        FlowPane buttons = new FlowPane();
+        buttons.setId("buttons");
+        buttons.setPadding(new Insets(0, 0, 0, 0));
+        buttons.setHgap(20);
+        buttons.setPrefSize(550, 50);
+
+        // Button week
+        Button week = new Button("Week");
+        week.setPrefSize(150, 50);
+
+        // Button maand
+        Button month = new Button("Maand");
+        month.setPrefSize(150, 50);
+
+        // Button jaar
+        Button year = new Button("Jaar");
+        year.setPrefSize(150, 50);
+
+        buttons.getChildren().addAll(week, month, year);
+
+
         // Table JavaFX
 
         TableView table = new TableView();
         table.setPrefSize(550, 300);
+        table.setPadding(new Insets(15, 0, 0, 0));
 
         table.setEditable(true);
 
@@ -64,7 +88,7 @@ public class DashboardScreen {
 
         table.getColumns().addAll(energyUsage, gasUsage, startPeriod, endPeriod);
 
-        content.getChildren().add(table);
+        content.getChildren().addAll(buttons, table);
 
         return content;
     }
