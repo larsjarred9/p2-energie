@@ -1,6 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.model.Energy;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -70,7 +71,9 @@ public class EnergyScreen {
         // button
         Button submit = new Button("Gegevens toevoegen →");
 
-
+        submit.setOnAction(e -> {
+            new Energy(energyPriceInput.getText(), startDateInput.getText(), endDateInput.getText());
+        });
 
         form.getChildren().addAll(energyPrice, energyPriceInput, startDate, startDateInput, endDate, endDateInput, submit);
 

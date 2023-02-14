@@ -1,6 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.model.Gas;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -26,6 +27,7 @@ public class GasScreen {
 
         gasScene = new Scene(container);
         gasScene.getStylesheets().add("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900");
+        gasScene.getStylesheets().add(HelloApplication.class.getResource("stylesheets/style.css").toString());
         gasScene.getStylesheets().add(HelloApplication.class.getResource("stylesheets/style.css").toString());
     }
 
@@ -68,6 +70,10 @@ public class GasScreen {
 
         // button
         Button submit = new Button("Gegevens toevoegen →");
+
+        submit.setOnAction(e -> {
+                new Gas(priceGasInput.getText(), startDateInput.getText(), endDateInput.getText());
+        });
 
 
 
