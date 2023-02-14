@@ -1,6 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.model.Customer;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -116,6 +117,8 @@ public class HomeScreen {
             } catch (NumberFormatException ex) {
                 return;
             }
+
+            new Customer(id.getText(), name.getText(), email.getText(), deposit.getText());
 
             HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
         });
