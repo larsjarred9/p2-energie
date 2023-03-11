@@ -1,6 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.Utils;
 import com.example.p2energie.model.Customer;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -100,11 +101,10 @@ public class HomeScreen {
             }
 
             // check if id is a number
-            try {
-                Integer.parseInt(id.getText());
-            } catch (NumberFormatException ex) {
+            if(!Utils.isInteger(id.getText())) {
                 return;
             }
+
 
             // check if email is valid syntax
             if (!email.getText().contains("@")) {
