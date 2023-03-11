@@ -1,6 +1,8 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.Utils;
+import com.example.p2energie.model.Usage;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -81,6 +83,15 @@ public class UsageScreen {
         content.getChildren().addAll(title, form);
 
 
+        submit.setOnAction(e -> {
+            if(Utils.isFloat(energyAmountInput.getText()) && Utils.isFloat(gasAmountInput.getText())) {
+                new Usage(Float.parseFloat(energyAmountInput.getText()), Float.parseFloat(gasAmountInput.getText()), startDateInput.getText(), endDateInput.getText());
+            } else {
+                System.out.println("Please enter a valid number");
+            }
+        });
+
+
 
         return content;
     }
@@ -148,7 +159,6 @@ public class UsageScreen {
         logout.setOnMouseClicked(e -> {
             HelloApplication.mainStage.setScene(new HomeScreen().getHomeScene());
         });
-
 
         // add navigation items to navigation bar
         navigation.getChildren().addAll(logoView, home, gas, stroom, usage, logout);
