@@ -16,7 +16,7 @@ public class HelloApplication extends javafx.application.Application {
         mainStage.setWidth(applicationSize[0]);
         mainStage.setHeight(applicationSize[1]);
         mainStage.setResizable(false);
-        mainStage.setTitle("van de bron - Energy Management ");
+        mainStage.setTitle("Van de bron - Energy Management ");
 
         mainStage.setScene(new HomeScreen().getHomeScene());
         mainStage.show();
