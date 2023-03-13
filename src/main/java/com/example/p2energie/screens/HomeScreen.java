@@ -118,7 +118,7 @@ public class HomeScreen {
                 return;
             }
 
-            new Customer(id.getText(), name.getText(), email.getText(), deposit.getText());
+            // set customer data
             Customer customer = Customer.getInstance();
             customer.setId(id.getText());
             customer.setName(name.getText());
