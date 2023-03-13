@@ -2,11 +2,11 @@ package com.example.p2energie.model;
 
 public class Energy {
 
-    public static Gas _instance;
+    public static Energy _instance;
 
-    public static Gas getInstance(){
+    public static Energy getInstance(){
         if (_instance == null) {
-            _instance = new Gas();
+            _instance = new Energy();
         }
 
         return _instance;
