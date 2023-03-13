@@ -119,6 +119,11 @@ public class HomeScreen {
             }
 
             new Customer(id.getText(), name.getText(), email.getText(), deposit.getText());
+            Customer customer = Customer.getInstance();
+            customer.setId(id.getText());
+            customer.setName(name.getText());
+            customer.setEmail(email.getText());
+            customer.setDeposit(deposit.getText());
 
             HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
         });

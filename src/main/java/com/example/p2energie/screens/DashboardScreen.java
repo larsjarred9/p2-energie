@@ -105,7 +105,9 @@ public class DashboardScreen {
         pane.setPrefSize(550, 300);
         pane.setVgap(20);
 
-        Text text = new Text("Welkom NAAM, vul de gegevens in de bovestaande tabs in om uw verbruik te bekijken.");
+        Customer customer = Customer.getInstance();
+
+        Text text = new Text("Welkom "+customer.getName()+", vul de gegevens in de bovestaande tabs in om uw verbruik te bekijken.");
 
         TableView<Usage> table = new TableView();
         table.setPadding(new Insets(10, 0, 0, 0));

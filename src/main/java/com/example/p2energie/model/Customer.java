@@ -2,11 +2,11 @@ package com.example.p2energie.model;
 
 public class Customer {
 
-    public static Gas _instance;
+    public static Customer _instance;
 
-    public static Gas getInstance(){
+    public static Customer getInstance(){
         if (_instance == null) {
-            _instance = new Gas();
+            _instance = new Customer();
         }
 
         return _instance;
@@ -32,10 +32,6 @@ public class Customer {
         this.name = null;
         this.email = null;
         this.deposit = null;
-    }
-
-    public static void set_instance(Gas _instance) {
-        Customer._instance = _instance;
     }
 
     public String getId() {
