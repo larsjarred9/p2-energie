@@ -2,6 +2,7 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import com.example.p2energie.model.Energy;
+import com.example.p2energie.model.Gas;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -60,22 +61,21 @@ public class EnergyScreen {
         TextField energyPriceInput = new TextField();
         energyPriceInput.setPrefWidth(300);
 
-        Label startDate = new Label("Start datum");
-        TextField startDateInput = new TextField();
-        startDateInput.setPrefWidth(300);
-
-        Label endDate = new Label("Eind datum");
-        TextField endDateInput = new TextField();
-        endDateInput.setPrefWidth(300);
+        Label weekAmount = new Label("Weeknummer");
+        TextField weekInput = new TextField();
+        weekInput.setPrefWidth(300);
 
         // button
         Button submit = new Button("Gegevens toevoegen →");
 
         submit.setOnAction(e -> {
-            new Energy(energyPriceInput.getText(), startDateInput.getText(), endDateInput.getText());
+            Energy energy = Energy.getInstance();
+            energy.setEnergyUsage(energyPrice.getText());
+            energy.setWeek(weekInput.getText());
+
         });
 
-        form.getChildren().addAll(energyPrice, energyPriceInput, startDate, startDateInput, endDate, endDateInput, submit);
+        form.getChildren().addAll(energyPrice, energyPriceInput, weekAmount, weekInput, submit);
 
         content.getChildren().addAll(title, form);
 

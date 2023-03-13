@@ -60,24 +60,23 @@ public class GasScreen {
         TextField priceGasInput = new TextField();
         priceGasInput.setPrefWidth(300);
 
-        Label startDate = new Label("Start datum");
-        TextField startDateInput = new TextField();
-        startDateInput.setPrefWidth(300);
 
-        Label endDate = new Label("Eind datum");
-        TextField endDateInput = new TextField();
-        endDateInput.setPrefWidth(300);
+        Label weekAmount = new Label("Eind datum");
+        TextField weekInput = new TextField();
+        weekInput.setPrefWidth(300);
 
         // button
         Button submit = new Button("Gegevens toevoegen →");
 
         submit.setOnAction(e -> {
-                new Gas(priceGasInput.getText(), startDateInput.getText(), endDateInput.getText());
+            Gas gas = Gas.getInstance();
+            gas.setGasUsage(priceGasInput.getText());
+            gas.setWeek(weekInput.getText());
+
         });
 
 
-
-        form.getChildren().addAll(priceGas, priceGasInput, startDate, startDateInput, endDate, endDateInput, submit);
+        form.getChildren().addAll(priceGas, priceGasInput, weekAmount, weekInput, submit);
 
         content.getChildren().addAll(title, form);
 

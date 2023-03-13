@@ -2,6 +2,7 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import com.example.p2energie.Utils;
+import com.example.p2energie.model.Energy;
 import com.example.p2energie.model.Usage;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -65,27 +66,26 @@ public class UsageScreen {
         gasAmountInput.setPrefWidth(300);
 
 
-        Label startDate = new Label("Start datum");
-        TextField startDateInput = new TextField();
-        startDateInput.setPrefWidth(300);
-
-        Label endDate = new Label("Eind datum");
-        TextField endDateInput = new TextField();
-        endDateInput.setPrefWidth(300);
+        Label weekNumber = new Label("Weeknummer");
+        TextField weekInput = new TextField();
+        weekInput.setPrefWidth(300);
 
         // button
         Button submit = new Button("Gegevens toevoegen →");
 
 
 
-        form.getChildren().addAll(energyAmount, energyAmountInput, gasAmount, gasAmountInput, startDate, startDateInput, endDate, endDateInput, submit);
+        form.getChildren().addAll(energyAmount, energyAmountInput, gasAmount, gasAmountInput, weekNumber, weekInput, submit);
 
         content.getChildren().addAll(title, form);
 
 
         submit.setOnAction(e -> {
             if(Utils.isFloat(energyAmountInput.getText()) && Utils.isFloat(gasAmountInput.getText())) {
-                new Usage(Float.parseFloat(energyAmountInput.getText()), Float.parseFloat(gasAmountInput.getText()), startDateInput.getText(), endDateInput.getText());
+                Usage usage = Usage.getInstance();
+                usage.setEnergyUsage(Float.valueOf(energyAmountInput.getText()));
+                usage.setGasUsage(Float.valueOf(gasAmountInput.getText()));
+                usage.setWeek(weekInput.getText());
             } else {
                 System.out.println("Please enter a valid number");
             }
