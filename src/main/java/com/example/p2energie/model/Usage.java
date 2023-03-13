@@ -32,11 +32,27 @@ public class Usage {
         this.week = null;
     }
 
-    public static Gas get_instance() {
-        return _instance;
+    public Float getEnergyUsage() {
+        return energyUsage;
     }
 
-    public static void set_instance(Gas _instance) {
-        Usage._instance = _instance;
+    public void setEnergyUsage(Float energyUsage) {
+        this.energyUsage = energyUsage;
+    }
+
+    public Float getGasUsage() {
+        return gasUsage;
+    }
+
+    public void setGasUsage(Float gasUsage) {
+        this.gasUsage = gasUsage;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 }
