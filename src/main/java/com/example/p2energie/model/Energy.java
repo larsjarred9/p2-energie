@@ -2,16 +2,45 @@ package com.example.p2energie.model;
 
 public class Energy {
 
-    private final String energyUsage, startPeriod, endPeriod;
+    public static Gas _instance;
+
+    public static Gas getInstance(){
+        if (_instance == null) {
+            _instance = new Gas();
+        }
+
+        return _instance;
+    }
+
+    private String energyUsage, week;
 
     /**
      * @param energyUsage energy usage
-     * @param startPeriod start period
-     * @param endPeriod end period
+     * @param week week
      */
-    public Energy(String energyUsage, String startPeriod, String endPeriod) {
+    public Energy(String energyUsage, String week) {
         this.energyUsage = energyUsage;
-        this.startPeriod = startPeriod;
-        this.endPeriod = endPeriod;
+        this.week = week;
+    }
+
+    public Energy(){
+        this.energyUsage = null;
+        this.week = null;
+    }
+
+    public String getEnergyUsage() {
+        return energyUsage;
+    }
+
+    public void setEnergyUsage(String energyUsage) {
+        this.energyUsage = energyUsage;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 }
