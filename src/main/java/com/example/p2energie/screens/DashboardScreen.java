@@ -1,16 +1,22 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.model.Gas;
+import com.example.p2energie.model.Usage;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
+import java.util.concurrent.Flow;
 
 public class DashboardScreen {
 
@@ -44,6 +50,9 @@ public class DashboardScreen {
         content.relocate(325, 100);
         content.setStyle("-fx-background-color: white;");
 
+        Gas gas = Gas.getInstance();
+        System.out.println(gas.getGasUsage());
+
 //        // Flowpane with 3 buttons week, maand, jaar
 //        FlowPane buttons = new FlowPane();
 //        buttons.setId("buttons");
@@ -66,32 +75,74 @@ public class DashboardScreen {
 //        buttons.getChildren().addAll(week, month, year);
 
 
-        // Table JavaFX
-
-        TableView table = new TableView();
-        table.setPrefSize(550, 300);
-        table.setPadding(new Insets(15, 0, 0, 0));
-
-        table.setEditable(true);
-
-        TableColumn energyUsage = new TableColumn("Stroomverbruik kWh");
-        TableColumn gasUsage = new TableColumn("Gasverbuik m3");
-        TableColumn startPeriod = new TableColumn("Begin Datum");
-        TableColumn endPeriod = new TableColumn("Eind Datum");
-
-        // give colums a width
-        energyUsage.setPrefWidth(150);
-        gasUsage.setPrefWidth(150);
-        startPeriod.setPrefWidth(125);
-        endPeriod.setPrefWidth(125);
-
-
-        table.getColumns().addAll(energyUsage, gasUsage, startPeriod, endPeriod);
+//        // Table JavaFX
+//
+//        TableView table = new TableView();
+//        table.setPrefSize(550, 300);
+//        table.setPadding(new Insets(15, 0, 0, 0));
+//
+//        table.setEditable(true);
+//
+//        TableColumn energyUsage = new TableColumn("Stroomverbruik kWh");
+//        TableColumn gasUsage = new TableColumn("Gasverbuik m3");
+//        TableColumn startPeriod = new TableColumn("Begin Datum");
+//        TableColumn endPeriod = new TableColumn("Eind Datum");
+//
+//        // give colums a width
+//        energyUsage.setPrefWidth(150);
+//        gasUsage.setPrefWidth(150);
+//        startPeriod.setPrefWidth(125);
+//        endPeriod.setPrefWidth(125);
+//
+//
+//        table.getColumns().addAll(energyUsage, gasUsage, startPeriod, endPeriod);
 
 
 
 //        content.getChildren().addAll(buttons, table);
-        content.getChildren().addAll(table);
+
+        FlowPane pane = new FlowPane();
+        pane.setPrefSize(550, 300);
+        pane.setVgap(20);
+
+        Text text = new Text("Welkom NAAM, vul de gegevens in de bovestaande tabs in om uw verbruik te bekijken.");
+
+        TableView<Usage> table = new TableView();
+        table.setPadding(new Insets(10, 0, 0, 0));
+
+
+        TableColumn<Usage, String> EnergyUsage =
+                new TableColumn<>("Stroomverbruik kWh");
+
+        EnergyUsage.setCellValueFactory(
+                new PropertyValueFactory<>("energyUsage"));
+
+
+        TableColumn<Usage, String> GasUsage =
+                new TableColumn<>("Gasverbruik m3");
+
+        GasUsage.setCellValueFactory(
+                new PropertyValueFactory<>("gasUsage"));
+
+        TableColumn<Usage, String> Week =
+                new TableColumn<>("Week");
+
+        Week.setCellValueFactory(
+                new PropertyValueFactory<>("week"));
+
+
+        EnergyUsage.setPrefWidth(100);
+        GasUsage.setPrefWidth(150);
+        Week.setPrefWidth(100);
+
+        table.getColumns().addAll(EnergyUsage, GasUsage, Week);
+
+        table.setPrefHeight(325);
+
+
+        pane.getChildren().addAll(text, table);
+
+        content.getChildren().add(pane);
 
         return content;
     }
