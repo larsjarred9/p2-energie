@@ -68,9 +68,7 @@ public class EnergyScreen {
         Button submit = new Button("Gegevens toevoegen →");
 
         submit.setOnAction(e -> {
-            Energy energy = Energy.getInstance();
-            energy.setEnergyUsage(energyPrice.getText());
-            energy.setWeek(weekInput.getText());
+            Energy.addEnergyList(new Energy(energyPriceInput.getText(), weekInput.getText()));
 
         });
 
