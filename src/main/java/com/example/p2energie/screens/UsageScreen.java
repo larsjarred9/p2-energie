@@ -2,7 +2,6 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import com.example.p2energie.Utils;
-import com.example.p2energie.model.Energy;
 import com.example.p2energie.model.Usage;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -82,10 +81,7 @@ public class UsageScreen {
 
         submit.setOnAction(e -> {
             if(Utils.isFloat(energyAmountInput.getText()) && Utils.isFloat(gasAmountInput.getText())) {
-                Usage usage = Usage.getInstance();
-                usage.setEnergyUsage(Float.valueOf(energyAmountInput.getText()));
-                usage.setGasUsage(Float.valueOf(gasAmountInput.getText()));
-                usage.setWeek(weekInput.getText());
+                Usage.addUsageToList(new Usage(Float.valueOf(energyAmountInput.getText()), Float.valueOf(gasAmountInput.getText()), weekInput.getText()));
             } else {
                 System.out.println("Please enter a valid number");
             }

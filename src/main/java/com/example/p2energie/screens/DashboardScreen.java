@@ -139,6 +139,15 @@ public class DashboardScreen {
 
         table.getColumns().addAll(EnergyUsage, GasUsage, Week);
 
+        ArrayList usageList;
+        usageList = Usage.getInstance();
+
+        usageList.forEach(e -> {
+            if(e instanceof Usage) {
+                table.getItems().add((Usage) e);
+            }
+        });
+
         table.setPrefHeight(325);
 
 

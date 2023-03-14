@@ -1,15 +1,18 @@
 package com.example.p2energie.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Usage {
 
-    public static Usage _instance;
+    private static ArrayList usageList = new ArrayList<Usage>();
 
-    public static Usage getInstance(){
-        if (_instance == null) {
-            _instance = new Usage();
-        }
+    public static void addUsageToList(Usage usage) {
+        usageList.add(usage);
+    }
 
-        return _instance;
+    public static ArrayList getInstance(){
+        return usageList;
     }
 
     private Float energyUsage, gasUsage;
