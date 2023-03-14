@@ -61,7 +61,7 @@ public class GasScreen {
         priceGasInput.setPrefWidth(300);
 
 
-        Label weekAmount = new Label("Eind datum");
+        Label weekAmount = new Label("Weeknummer");
         TextField weekInput = new TextField();
         weekInput.setPrefWidth(300);
 
@@ -69,9 +69,24 @@ public class GasScreen {
         Button submit = new Button("Gegevens toevoegen →");
 
         submit.setOnAction(e -> {
+
+            // If input is empty
+            if (priceGasInput.getText().isEmpty() || weekInput.getText().isEmpty()) {
+                return;
+            }
+
+            // If week number is not a number and may not be between 1 and 52
+            if (!weekInput.getText().matches("[1-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-2]")) {
+                return;
+            }
+
+            // If price is not a number or a decimal
+            if (!priceGasInput.getText().matches("[0-9]+([,.][0-9]+)?")) {
+                return;
+            }
+
             Gas.addGasList(new Gas(priceGasInput.getText(), weekInput.getText()));
         });
-
 
         form.getChildren().addAll(priceGas, priceGasInput, weekAmount, weekInput, submit);
 
