@@ -119,12 +119,12 @@ public class HomeScreen {
             }
 
             // Set customer data
-
             Boolean status = new Customer().addCustomer(new Customer(id.getText(), name.getText(), email.getText(), deposit.getText()));
 
 
             // If customer is added, go to dashboard
             if(status) {
+                // Create instance of customer (for dashboard)
                 Customer customer = Customer.getInstance();
                 customer.setId(id.getText());
                 customer.setName(name.getText());
