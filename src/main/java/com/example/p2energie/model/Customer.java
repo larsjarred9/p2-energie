@@ -1,18 +1,12 @@
 package com.example.p2energie.model;
 
+import com.example.p2energie.Database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Customer {
-
-    public static Customer _instance;
-
-
-    // Create global instance object
-    public static Customer getInstance(){
-        if (_instance == null) {
-            _instance = new Customer();
-        }
-
-        return _instance;
-    }
 
     private String id, name, email, deposit;
 
@@ -66,5 +60,27 @@ public class Customer {
 
     public void setDeposit(String deposit) {
         this.deposit = deposit;
+    }
+
+    /**
+     * Add customer to customer table in database
+     * @param customer customer
+     * @return
+     */
+    public Boolean addCustomer(Customer customer) {
+
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO customer (id, name, email, deposit) VALUES (?, ?, ?, ?)");
+            statement.setString(1, customer.getId());
+            statement.setString(2, customer.getName());
+            statement.setString(3, customer.getEmail());
+            statement.setString(4, customer.getDeposit());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

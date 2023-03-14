@@ -1,22 +1,15 @@
 package com.example.p2energie.model;
 
+import com.example.p2energie.Database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Gas {
 
     private String gasUsage, week;
-
-    private static ArrayList gasList = new ArrayList<Gas>();
-
-    // Add gas to list
-    public static void addGasList(Gas gas) {
-        gasList.add(gas);
-    }
-
-    // Get gas list
-    public static ArrayList getInstance(){
-        return gasList;
-    }
 
 
     /**
@@ -48,5 +41,25 @@ public class Gas {
 
     public String getWeek() {
         return week;
+    }
+
+    /**
+     * Add Gas to Gas table in database
+     * @param gas Energy
+     * @return
+     */
+    public Boolean addGasPrice(Gas gas) {
+
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO gas (gasUsage, week) VALUES (?, ?)");
+            statement.setString(1, gas.getGasUsage());
+            statement.setString(2, gas.getWeek());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }
