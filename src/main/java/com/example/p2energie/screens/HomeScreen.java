@@ -118,14 +118,15 @@ public class HomeScreen {
                 return;
             }
 
-            // set customer data
-            Customer customer = Customer.getInstance();
-            customer.setId(id.getText());
-            customer.setName(name.getText());
-            customer.setEmail(email.getText());
-            customer.setDeposit(deposit.getText());
+            // Set customer data
 
-            HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            Boolean status = new Customer().addCustomer(new Customer(id.getText(), name.getText(), email.getText(), deposit.getText()));
+
+
+            // If customer is added, go to dashboard
+            if(status) {
+                HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            }
         });
 
         return content;
