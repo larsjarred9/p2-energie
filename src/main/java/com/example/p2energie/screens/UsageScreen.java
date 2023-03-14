@@ -81,7 +81,11 @@ public class UsageScreen {
 
         submit.setOnAction(e -> {
             if(Utils.isFloat(energyAmountInput.getText()) && Utils.isFloat(gasAmountInput.getText())) {
-                Usage.addUsageToList(new Usage(Float.valueOf(energyAmountInput.getText()), Float.valueOf(gasAmountInput.getText()), weekInput.getText()));
+                Boolean status = new Usage().addUsage(new Usage(Float.parseFloat(energyAmountInput.getText()), Float.parseFloat(gasAmountInput.getText()), weekInput.getText()));
+
+                if(status) {
+                    HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+                }
             } else {
                 System.out.println("Please enter a valid number");
             }

@@ -86,7 +86,11 @@ public class GasScreen {
             }
 
             // Add form to gas list
-            Gas.addGasList(new Gas(priceGasInput.getText(), weekInput.getText()));
+            Boolean status = new Gas().addGasPrice(new Gas(priceGasInput.getText(), weekInput.getText()));
+
+            if(status) {
+                HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            }
         });
 
         form.getChildren().addAll(priceGas, priceGasInput, weekAmount, weekInput, submit);

@@ -85,7 +85,11 @@ public class EnergyScreen {
             }
 
             // Add form to energy list
-            Energy.addEnergyList(new Energy(energyPriceInput.getText(), weekInput.getText()));
+            Boolean status = new Energy().addEnergyPrice(new Energy(energyPriceInput.getText(), weekInput.getText()));
+
+            if (status) {
+                HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            }
 
         });
 
