@@ -2,7 +2,6 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import com.example.p2energie.model.Energy;
-import com.example.p2energie.model.Gas;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;

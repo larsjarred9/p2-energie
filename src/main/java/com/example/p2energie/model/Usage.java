@@ -1,6 +1,5 @@
 package com.example.p2energie.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Usage {
