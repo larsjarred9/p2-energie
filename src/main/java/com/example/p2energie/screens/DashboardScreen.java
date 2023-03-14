@@ -4,9 +4,6 @@ import com.example.p2energie.HelloApplication;
 import com.example.p2energie.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -95,6 +92,8 @@ public class DashboardScreen {
         }
 
 
+
+        // If price is lower than deposit, show warning
         if((price/Float.parseFloat(deposit)) < 52) {
 
             value = "Je hebt vanaf week 1 tot nu € " + price + " gebruikt. Het voorschot van € " + deposit + " zouden je energiekosten niet dekken. Overweeg om je maandbedrag te verhogen.";

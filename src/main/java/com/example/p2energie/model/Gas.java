@@ -8,10 +8,12 @@ public class Gas {
 
     private static ArrayList gasList = new ArrayList<Gas>();
 
+    // Add gas to list
     public static void addGasList(Gas gas) {
         gasList.add(gas);
     }
 
+    // Get gas list
     public static ArrayList getInstance(){
         return gasList;
     }

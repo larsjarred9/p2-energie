@@ -8,10 +8,12 @@ public class Energy {
 
     private static ArrayList energyList = new ArrayList<Energy>();
 
+    // Add energy to list
     public static void addEnergyList(Energy energy) {
         energyList.add(energy);
     }
 
+    // Get energy list
     public static ArrayList getInstance(){
         return energyList;
     }

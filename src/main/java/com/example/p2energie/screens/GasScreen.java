@@ -85,6 +85,7 @@ public class GasScreen {
                 return;
             }
 
+            // Add form to gas list
             Gas.addGasList(new Gas(priceGasInput.getText(), weekInput.getText()));
         });
 

@@ -4,6 +4,8 @@ public class Customer {
 
     public static Customer _instance;
 
+
+    // Create global instance object
     public static Customer getInstance(){
         if (_instance == null) {
             _instance = new Customer();

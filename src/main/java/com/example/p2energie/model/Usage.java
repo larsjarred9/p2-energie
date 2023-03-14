@@ -6,10 +6,12 @@ public class Usage {
 
     private static ArrayList usageList = new ArrayList<Usage>();
 
+    // Add usage to list
     public static void addUsageToList(Usage usage) {
         usageList.add(usage);
     }
 
+    // Get usage list
     public static ArrayList getInstance(){
         return usageList;
     }

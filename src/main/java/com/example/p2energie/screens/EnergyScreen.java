@@ -84,7 +84,7 @@ public class EnergyScreen {
                 return;
             }
 
-
+            // Add form to energy list
             Energy.addEnergyList(new Energy(energyPriceInput.getText(), weekInput.getText()));
 
         });
