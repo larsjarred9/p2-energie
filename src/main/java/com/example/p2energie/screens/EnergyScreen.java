@@ -68,6 +68,23 @@ public class EnergyScreen {
         Button submit = new Button("Gegevens toevoegen →");
 
         submit.setOnAction(e -> {
+
+            // If input is empty
+            if (energyPriceInput.getText().isEmpty() || weekInput.getText().isEmpty()) {
+                return;
+            }
+
+            // If week number is not a number and may not be between 1 and 52
+            if (!weekInput.getText().matches("[1-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-2]")) {
+                return;
+            }
+
+            // If price is not a number or a decimal
+            if (!energyPriceInput.getText().matches("[0-9]+([,.][0-9]+)?")) {
+                return;
+            }
+
+
             Energy.addEnergyList(new Energy(energyPriceInput.getText(), weekInput.getText()));
 
         });
