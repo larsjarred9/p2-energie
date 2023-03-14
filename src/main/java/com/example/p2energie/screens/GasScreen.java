@@ -69,10 +69,7 @@ public class GasScreen {
         Button submit = new Button("Gegevens toevoegen →");
 
         submit.setOnAction(e -> {
-            Gas gas = Gas.getInstance();
-            gas.setGasUsage(priceGasInput.getText());
-            gas.setWeek(weekInput.getText());
-
+            Gas.addGasList(new Gas(priceGasInput.getText(), weekInput.getText()));
         });
 
 

@@ -1,18 +1,21 @@
 package com.example.p2energie.model;
 
+import java.util.ArrayList;
+
 public class Gas {
 
-    public static Gas _instance;
+    private String gasUsage, week;
 
-    public static Gas getInstance(){
-        if (_instance == null) {
-            _instance = new Gas();
-        }
+    private static ArrayList gasList = new ArrayList<Gas>();
 
-        return _instance;
+    public static void addGasList(Gas gas) {
+        gasList.add(gas);
     }
 
-    private String gasUsage, week;
+    public static ArrayList getInstance(){
+        return gasList;
+    }
+
 
     /**
      * @param gasUsage gas usage

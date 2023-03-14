@@ -49,9 +49,6 @@ public class DashboardScreen {
         content.relocate(325, 100);
         content.setStyle("-fx-background-color: white;");
 
-        Gas gas = Gas.getInstance();
-        System.out.println(gas.getGasUsage());
-
 //        // Flowpane with 3 buttons week, maand, jaar
 //        FlowPane buttons = new FlowPane();
 //        buttons.setId("buttons");
