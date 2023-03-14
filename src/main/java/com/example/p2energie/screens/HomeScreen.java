@@ -125,6 +125,11 @@ public class HomeScreen {
 
             // If customer is added, go to dashboard
             if(status) {
+                Customer customer = Customer.getInstance();
+                customer.setId(id.getText());
+                customer.setName(name.getText());
+                customer.setEmail(email.getText());
+                customer.setDeposit(deposit.getText());
                 HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
             }
         });
