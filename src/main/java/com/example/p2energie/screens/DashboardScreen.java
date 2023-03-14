@@ -1,9 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
-import com.example.p2energie.model.Customer;
-import com.example.p2energie.model.Gas;
-import com.example.p2energie.model.Usage;
+import com.example.p2energie.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -46,56 +44,8 @@ public class DashboardScreen {
         FlowPane content = new FlowPane();
         content.setId("dashboard");
         content.setPadding(new Insets(50, 25, 50, 25));
-        content.relocate(325, 100);
+        content.relocate(25, 100);
         content.setStyle("-fx-background-color: white;");
-
-//        // Flowpane with 3 buttons week, maand, jaar
-//        FlowPane buttons = new FlowPane();
-//        buttons.setId("buttons");
-//        buttons.setPadding(new Insets(0, 0, 0, 0));
-//        buttons.setHgap(20);
-//        buttons.setPrefSize(550, 50);
-//
-//        // Button week
-//        Button week = new Button("Week");
-//        week.setPrefSize(150, 50);
-//
-//        // Button maand
-//        Button month = new Button("Maand");
-//        month.setPrefSize(150, 50);
-//
-//        // Button jaar
-//        Button year = new Button("Jaar");
-//        year.setPrefSize(150, 50);
-//
-//        buttons.getChildren().addAll(week, month, year);
-
-
-//        // Table JavaFX
-//
-//        TableView table = new TableView();
-//        table.setPrefSize(550, 300);
-//        table.setPadding(new Insets(15, 0, 0, 0));
-//
-//        table.setEditable(true);
-//
-//        TableColumn energyUsage = new TableColumn("Stroomverbruik kWh");
-//        TableColumn gasUsage = new TableColumn("Gasverbuik m3");
-//        TableColumn startPeriod = new TableColumn("Begin Datum");
-//        TableColumn endPeriod = new TableColumn("Eind Datum");
-//
-//        // give colums a width
-//        energyUsage.setPrefWidth(150);
-//        gasUsage.setPrefWidth(150);
-//        startPeriod.setPrefWidth(125);
-//        endPeriod.setPrefWidth(125);
-//
-//
-//        table.getColumns().addAll(energyUsage, gasUsage, startPeriod, endPeriod);
-
-
-
-//        content.getChildren().addAll(buttons, table);
 
         FlowPane pane = new FlowPane();
         pane.setPrefSize(550, 300);
@@ -105,53 +55,75 @@ public class DashboardScreen {
 
         Text text = new Text("Welkom "+customer.getName()+", vul de gegevens in de bovestaande tabs in om uw verbruik te bekijken.");
 
-        TableView<Usage> table = new TableView();
-        table.setPadding(new Insets(10, 0, 0, 0));
+        // Define value string
+        String value = "";
+
+        // Define amount of defined weeks
+        Integer weeks = 0;
+
+        // define price float
+        Float price = (float)0;
+
+        // Get all lists (Energy, Gas, Usage)
+        ArrayList usageList = Usage.getInstance();
+        ArrayList gasList = Gas.getInstance();
+        ArrayList energyList = Energy.getInstance();
+
+        // Get deposit
+        String deposit = Customer.getInstance().getDeposit();
+
+        // Check if deposit is not null or empty
+        if(!deposit.isEmpty() || deposit != null) {
+            value = "Geen data beschikbaar";
+        }
+
+        // calculate is deposit would cover the price per week Usage
+        for (int i = 0; i < usageList.size(); i++) {
+
+            weeks++;
+            // get usage data
+            Usage usage = (Usage) usageList.get(i);
+
+            // get energy price
+            Energy energy = (Energy) energyList.get(i);
+
+            // get gas price
+            Gas gas = (Gas) gasList.get(i);
+
+            // calculate price
+            price = price + calculatePrice(energy.getEnergyUsage(), gas.getGasUsage(), usage.getEnergyUsage(), usage.getGasUsage());
+        }
 
 
-        TableColumn<Usage, String> EnergyUsage =
-                new TableColumn<>("Stroomverbruik kWh");
+        if((price/Float.parseFloat(deposit)) < 52) {
 
-        EnergyUsage.setCellValueFactory(
-                new PropertyValueFactory<>("energyUsage"));
+            value = "Je hebt vanaf week 1 tot nu € " + price + " gebruikt. Het voorschot van € " + deposit + " zouden je energiekosten niet dekken. Overweeg om je maandbedrag te verhogen.";
+        } else {
+            value = "Je hebt vanaf week 1 tot nu € " + price + " gebruikt. Het voorschot van € " + deposit + " zouden je energiekosten tot het einde van het jaar dekken.";
+        }
 
-
-        TableColumn<Usage, String> GasUsage =
-                new TableColumn<>("Gasverbruik m3");
-
-        GasUsage.setCellValueFactory(
-                new PropertyValueFactory<>("gasUsage"));
-
-        TableColumn<Usage, String> Week =
-                new TableColumn<>("Week");
-
-        Week.setCellValueFactory(
-                new PropertyValueFactory<>("week"));
+        if(weeks < 1) {
+            value = "Geen data beschikbaar";
+        }
 
 
-        EnergyUsage.setPrefWidth(100);
-        GasUsage.setPrefWidth(150);
-        Week.setPrefWidth(100);
+        Text info = new Text(value);
 
-        table.getColumns().addAll(EnergyUsage, GasUsage, Week);
-
-        ArrayList usageList;
-        usageList = Usage.getInstance();
-
-        usageList.forEach(e -> {
-            if(e instanceof Usage) {
-                table.getItems().add((Usage) e);
-            }
-        });
-
-        table.setPrefHeight(325);
-
-
-        pane.getChildren().addAll(text, table);
+        pane.getChildren().addAll(text, info);
 
         content.getChildren().add(pane);
 
         return content;
+    }
+
+    private float calculatePrice(String energyPrice, String gasPrice, float energyUsage, float gasUsage) {
+        float price = 0;
+
+        // calculate price
+        price = price + (Float.parseFloat(energyPrice) * energyUsage);
+        price = price + (Float.parseFloat(gasPrice) * gasUsage);
+
+        return price;
     }
 
     public Pane getHeader() {
