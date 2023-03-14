@@ -4,6 +4,7 @@ import com.example.p2energie.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -29,6 +30,16 @@ public class Usage {
         this.week = null;
     }
 
+    public Usage(ResultSet result) {
+        try {
+            this.energyUsage = result.getFloat("energyUsage");
+            this.gasUsage = result.getFloat("gasUsage");
+            this.week = result.getString("week");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Float getEnergyUsage() {
         return energyUsage;
     }
@@ -52,6 +63,31 @@ public class Usage {
     public void setWeek(String week) {
         this.week = week;
     }
+
+    /**
+     * Get all usages from database
+     * @return ArrayList
+     */
+    public ArrayList<Object> getUsage() {
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usage");
+            ResultSet result = statement.executeQuery();
+
+            ArrayList<Object> usage = new ArrayList<>();
+
+            while (result.next()) {
+                usage.add(new Usage(result));
+            }
+
+            return usage;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     /**
      * Add Usage to Usage table in database
