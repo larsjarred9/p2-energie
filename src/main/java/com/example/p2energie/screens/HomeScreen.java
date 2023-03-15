@@ -90,18 +90,22 @@ public class HomeScreen {
 
         form.getChildren().addAll(labelId, id, labelName, name, labelEmail, email, labelDeposit, deposit, submit);
 
-        content.getChildren().addAll(logoView, title, form);
+        Text error = new Text("");
+
+        content.getChildren().addAll(logoView, title, form, error);
 
         // button action
         submit.setOnAction(e -> {
 
             // validate form
             if (id.getText().isEmpty() || name.getText().isEmpty() || email.getText().isEmpty() || deposit.getText().isEmpty()) {
+                error.setText("Vul alle velden in.");
                 return;
             }
 
             // check if id is a number
             if(!Utils.isInteger(id.getText())) {
+                error.setText("Klantnummer moet een getal zijn.");
                 return;
             }
 
@@ -110,6 +114,7 @@ public class HomeScreen {
 
             // check if email is valid syntax
             if (!email.getText().contains("@")) {
+                error.setText("Email is niet geldig.");
                 return;
             }
 
@@ -117,6 +122,7 @@ public class HomeScreen {
             try {
                 Integer.parseInt(deposit.getText());
             } catch (NumberFormatException ex) {
+                error.setText("Voorschot moet een getal zijn.");
                 return;
             }
 
@@ -133,6 +139,8 @@ public class HomeScreen {
                 customer.setEmail(email.getText());
                 customer.setDeposit(deposit.getText());
                 HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            } else {
+                error.setText("Er is iets fout gegaan. Probeer het opnieuw.");
             }
         });
 
