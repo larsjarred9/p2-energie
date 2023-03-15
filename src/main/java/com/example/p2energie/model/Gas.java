@@ -81,15 +81,17 @@ public class Gas {
     /**
      * Add Gas to Gas table in database
      * @param gas Energy
+     * @param userId User ID
      * @return
      */
-    public Boolean addGasPrice(Gas gas) {
+    public Boolean addGasPrice(Gas gas, Integer userId) {
 
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO gas (gasUsage, week) VALUES (?, ?)");
-            statement.setString(1, gas.getGasUsage());
-            statement.setString(2, gas.getWeek());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO gas (customer, gasUsage, week) VALUES (?, ?, ?)");
+            statement.setFloat(1, userId);
+            statement.setString(2, gas.getGasUsage());
+            statement.setString(3, gas.getWeek());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

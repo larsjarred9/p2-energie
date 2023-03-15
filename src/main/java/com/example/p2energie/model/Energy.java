@@ -82,12 +82,13 @@ public class Energy {
      * @param energy Energy
      * @return
      */
-    public Boolean addEnergyPrice(Energy energy) {
+    public Boolean addEnergyPrice(Energy energy, Integer userId) {
 
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO energy (energyUsage, week) VALUES (?, ?)");
-            statement.setString(1, energy.getEnergyUsage());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO energy (customer, energyUsage, week) VALUES (?, ?, ?)");
+            statement.setFloat(1, userId);
+            statement.setString(3, energy.getEnergyUsage());
             statement.setString(2, energy.getWeek());
             statement.executeUpdate();
         } catch (SQLException e) {

@@ -2,6 +2,7 @@ package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
 import com.example.p2energie.Utils;
+import com.example.p2energie.model.Customer;
 import com.example.p2energie.model.Usage;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -81,7 +82,7 @@ public class UsageScreen {
 
         submit.setOnAction(e -> {
             if(Utils.isFloat(energyAmountInput.getText()) && Utils.isFloat(gasAmountInput.getText())) {
-                Boolean status = new Usage().addUsage(new Usage(Float.parseFloat(energyAmountInput.getText()), Float.parseFloat(gasAmountInput.getText()), weekInput.getText()));
+                Boolean status = new Usage().addUsage(new Usage(Float.parseFloat(energyAmountInput.getText()), Float.parseFloat(gasAmountInput.getText()), weekInput.getText()), Customer.getInstance().getId());
 
                 if(status) {
                     HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());

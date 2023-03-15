@@ -1,6 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.model.Customer;
 import com.example.p2energie.model.Energy;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -85,7 +86,7 @@ public class EnergyScreen {
             }
 
             // Add form to energy list
-            Boolean status = new Energy().addEnergyPrice(new Energy(energyPriceInput.getText(), weekInput.getText()));
+            Boolean status = new Energy().addEnergyPrice(new Energy(energyPriceInput.getText(), weekInput.getText()), Customer.getInstance().getId());
 
             if (status) {
                 HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());

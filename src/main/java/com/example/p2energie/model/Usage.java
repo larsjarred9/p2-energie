@@ -92,16 +92,19 @@ public class Usage {
     /**
      * Add Usage to Usage table in database
      * @param usage Usage
+     * @param userId User ID
      * @return
      */
-    public Boolean addUsage(Usage usage) {
+    public Boolean addUsage(Usage usage, Integer userId) {
 
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO usage (energyUsage, gasUsage, week) VALUES (?, ?, ?)");
-            statement.setFloat(1, usage.getEnergyUsage());
-            statement.setFloat(2, usage.getGasUsage());
-            statement.setString(3, usage.getWeek());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO usage (customer, energyUsage, gasUsage, week) VALUES (?, ?, ?, ?)");
+            statement.setFloat(1, userId);
+            statement.setFloat(2, usage.getEnergyUsage());
+            statement.setFloat(3, usage.getGasUsage());
+            statement.setString(4, usage.getWeek());
+
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

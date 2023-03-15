@@ -1,6 +1,7 @@
 package com.example.p2energie.screens;
 
 import com.example.p2energie.HelloApplication;
+import com.example.p2energie.model.Customer;
 import com.example.p2energie.model.Gas;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -86,7 +87,7 @@ public class GasScreen {
             }
 
             // Add form to gas list
-            Boolean status = new Gas().addGasPrice(new Gas(priceGasInput.getText(), weekInput.getText()));
+            Boolean status = new Gas().addGasPrice(new Gas(priceGasInput.getText(), weekInput.getText()), Customer.getInstance().getId());
 
             if(status) {
                 HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
