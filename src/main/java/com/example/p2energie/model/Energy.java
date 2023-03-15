@@ -58,24 +58,24 @@ public class Energy {
      * @return ArrayList
      */
     public ArrayList<Object> getEnergy(Integer userId) {
+        ArrayList<Object> energy = new ArrayList<>();
+
         try {
             Connection connection = Database.getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM energy WHERE customer = ?");
             statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
-            ArrayList<Object> energy = new ArrayList<>();
 
             while (result.next()) {
                 energy.add(new Energy(result));
             }
 
-            return energy;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return energy;
     }
 
 

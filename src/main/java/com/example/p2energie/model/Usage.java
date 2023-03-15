@@ -70,13 +70,14 @@ public class Usage {
      * @return ArrayList
      */
     public ArrayList<Object> getUsage(Integer userId) {
+
+        ArrayList<Object> usage = new ArrayList<>();
+
         try {
             Connection connection = Database.getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM usage WHERE customer = ?");
             statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
-
-            ArrayList<Object> usage = new ArrayList<>();
 
             while (result.next()) {
                 usage.add(new Usage(result));
@@ -87,7 +88,7 @@ public class Usage {
             e.printStackTrace();
         }
 
-        return null;
+        return usage;
     }
 
 
@@ -102,7 +103,7 @@ public class Usage {
         try {
             Connection connection = Database.getConnection();
             PreparedStatement statement = connection.prepareStatement("INSERT INTO usage (customer, energyUsage, gasUsage, week) VALUES (?, ?, ?, ?)");
-            statement.setFloat(1, userId);
+            statement.setInt(1, userId);
             statement.setFloat(2, usage.getEnergyUsage());
             statement.setFloat(3, usage.getGasUsage());
             statement.setString(4, usage.getWeek());

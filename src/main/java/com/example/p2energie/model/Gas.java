@@ -59,24 +59,24 @@ public class Gas {
      * @return ArrayList
      */
     public ArrayList<Object> getGas(Integer userId) {
+
+        ArrayList<Object> gas = new ArrayList<>();
+
         try {
             Connection connection = Database.getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM gas WHERE customer = ?");
             statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
-            ArrayList<Object> gas = new ArrayList<>();
-
             while (result.next()) {
                 gas.add(new Gas(result));
             }
 
-            return gas;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return gas;
     }
 
 
