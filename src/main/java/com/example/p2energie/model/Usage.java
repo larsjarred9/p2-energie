@@ -66,12 +66,14 @@ public class Usage {
 
     /**
      * Get all usages from database
+     * @param userId Customer ID
      * @return ArrayList
      */
-    public ArrayList<Object> getUsage() {
+    public ArrayList<Object> getUsage(Integer userId) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usage");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usage WHERE customer = ?");
+            statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
             ArrayList<Object> usage = new ArrayList<>();

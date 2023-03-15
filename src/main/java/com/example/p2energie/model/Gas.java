@@ -55,12 +55,14 @@ public class Gas {
 
     /**
      * Get all Gas from database
+     * @param userId Customer ID
      * @return ArrayList
      */
-    public ArrayList<Object> getGas() {
+    public ArrayList<Object> getGas(Integer userId) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM gas");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM gas WHERE customer = ?");
+            statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
             ArrayList<Object> gas = new ArrayList<>();

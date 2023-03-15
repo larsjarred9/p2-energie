@@ -54,12 +54,14 @@ public class Energy {
 
     /**
      * Get all energy from database
+     * @param userId Customer ID
      * @return ArrayList
      */
-    public ArrayList<Object> getEnergy() {
+    public ArrayList<Object> getEnergy(Integer userId) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM energy");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM energy WHERE customer = ?");
+            statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
             ArrayList<Object> energy = new ArrayList<>();
