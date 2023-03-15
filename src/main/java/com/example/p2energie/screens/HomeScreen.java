@@ -105,6 +105,8 @@ public class HomeScreen {
                 return;
             }
 
+            Integer num = Integer.parseInt(id.getText());
+
 
             // check if email is valid syntax
             if (!email.getText().contains("@")) {
@@ -119,14 +121,14 @@ public class HomeScreen {
             }
 
             // Set customer data
-            Boolean status = new Customer().addCustomer(new Customer(id.getText(), name.getText(), email.getText(), deposit.getText()));
+            Boolean status = new Customer().addCustomer(new Customer(num, name.getText(), email.getText(), deposit.getText()));
 
 
             // If customer is added, go to dashboard
             if(status) {
                 // Create instance of customer (for dashboard)
                 Customer customer = Customer.getInstance();
-                customer.setId(id.getText());
+                customer.setId(num);
                 customer.setName(name.getText());
                 customer.setEmail(email.getText());
                 customer.setDeposit(deposit.getText());

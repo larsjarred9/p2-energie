@@ -20,8 +20,8 @@ public class Customer {
         return _instance;
     }
 
-
-    private String id, name, email, deposit;
+    private Integer id;
+    private String name, email, deposit;
 
     /**
      * @param id customer id
@@ -29,7 +29,7 @@ public class Customer {
      * @param email customer email
      * @param deposit customer deposit
      */
-    public Customer(String id, String name, String email, String deposit) {
+    public Customer(Integer id, String name, String email, String deposit) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -43,11 +43,11 @@ public class Customer {
         this.deposit = null;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,7 +85,7 @@ public class Customer {
         try {
             Connection connection = Database.getConnection();
             PreparedStatement statement = connection.prepareStatement("INSERT INTO customer (id, name, email, deposit) VALUES (?, ?, ?, ?)");
-            statement.setString(1, customer.getId());
+            statement.setInt(1, customer.getId());
             statement.setString(2, customer.getName());
             statement.setString(3, customer.getEmail());
             statement.setString(4, customer.getDeposit());
