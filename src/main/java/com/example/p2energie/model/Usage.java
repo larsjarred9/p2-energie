@@ -75,7 +75,7 @@ public class Usage {
 
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM usage WHERE customer = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM customeruse WHERE customer = ?");
             statement.setInt(1, userId);
             ResultSet result = statement.executeQuery();
 
@@ -102,7 +102,7 @@ public class Usage {
 
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO usage (customer, energyUsage, gasUsage, week) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO customeruse (customer, energyUsage, gasUsage, week) VALUES (?, ?, ?, ?)");
             statement.setInt(1, userId);
             statement.setFloat(2, usage.getEnergyUsage());
             statement.setFloat(3, usage.getGasUsage());
