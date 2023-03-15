@@ -68,20 +68,25 @@ public class EnergyScreen {
         // button
         Button submit = new Button("Gegevens toevoegen →");
 
+        Text error = new Text("");
+
         submit.setOnAction(e -> {
 
             // If input is empty
             if (energyPriceInput.getText().isEmpty() || weekInput.getText().isEmpty()) {
+                error.setText("Vul alle velden in");
                 return;
             }
 
             // If week number is not a number and may not be between 1 and 52
             if (!weekInput.getText().matches("[1-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-2]")) {
+                error.setText("Voer een geldig weeknummer in");
                 return;
             }
 
             // If price is not a number or a decimal
             if (!energyPriceInput.getText().matches("[0-9]+([,.][0-9]+)?")) {
+                error.setText("Voer een geldig getal in");
                 return;
             }
 
@@ -90,13 +95,15 @@ public class EnergyScreen {
 
             if (status) {
                 HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            } else {
+                error.setText("Er is iets fout gegaan");
             }
 
         });
 
         form.getChildren().addAll(energyPrice, energyPriceInput, weekAmount, weekInput, submit);
 
-        content.getChildren().addAll(title, form);
+        content.getChildren().addAll(title, form, error);
 
 
 

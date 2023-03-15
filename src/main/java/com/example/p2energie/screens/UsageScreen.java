@@ -72,15 +72,22 @@ public class UsageScreen {
 
         // button
         Button submit = new Button("Gegevens toevoegen →");
-
+        Text error = new Text("");
 
 
         form.getChildren().addAll(energyAmount, energyAmountInput, gasAmount, gasAmountInput, weekNumber, weekInput, submit);
 
-        content.getChildren().addAll(title, form);
+        content.getChildren().addAll(title, form, error);
 
 
         submit.setOnAction(e -> {
+
+            // check if week numer is between 1 and 52
+            if(Integer.parseInt(weekInput.getText()) < 1 || Integer.parseInt(weekInput.getText()) > 52) {
+                error.setText("Voer een geldig weeknummer in");
+                return;
+            }
+
             if(Utils.isFloat(energyAmountInput.getText()) && Utils.isFloat(gasAmountInput.getText())) {
                 Boolean status = new Usage().addUsage(new Usage(Float.parseFloat(energyAmountInput.getText()), Float.parseFloat(gasAmountInput.getText()), weekInput.getText()), Customer.getInstance().getId());
 
@@ -88,7 +95,7 @@ public class UsageScreen {
                     HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
                 }
             } else {
-                System.out.println("Please enter a valid number");
+                error.setText("Voer een geldig getal in");
             }
         });
 

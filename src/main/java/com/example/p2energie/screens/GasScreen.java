@@ -66,6 +66,8 @@ public class GasScreen {
         TextField weekInput = new TextField();
         weekInput.setPrefWidth(300);
 
+        Text error = new Text("");
+
         // button
         Button submit = new Button("Gegevens toevoegen →");
 
@@ -73,16 +75,19 @@ public class GasScreen {
 
             // If input is empty
             if (priceGasInput.getText().isEmpty() || weekInput.getText().isEmpty()) {
+                error.setText("Vul alle velden in");
                 return;
             }
 
             // If week number is not a number and may not be between 1 and 52
             if (!weekInput.getText().matches("[1-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-2]")) {
+                error.setText("Voer een geldig weeknummer in");
                 return;
             }
 
             // If price is not a number or a decimal
             if (!priceGasInput.getText().matches("[0-9]+([,.][0-9]+)?")) {
+                error.setText("Voer een geldig bedrag in");
                 return;
             }
 
@@ -91,12 +96,14 @@ public class GasScreen {
 
             if(status) {
                 HelloApplication.mainStage.setScene(new DashboardScreen().getDashboardScene());
+            } else {
+                error.setText("Er is iets fout gegaan");
             }
         });
 
         form.getChildren().addAll(priceGas, priceGasInput, weekAmount, weekInput, submit);
 
-        content.getChildren().addAll(title, form);
+        content.getChildren().addAll(title, form, error);
 
 
 
