@@ -48,9 +48,16 @@ public class DashboardScreen {
         pane.setPrefSize(550, 300);
         pane.setVgap(20);
 
+
         Customer customer = Customer.getInstance();
 
         Text text = new Text("Welkom "+customer.getName()+", vul de gegevens in de bovestaande tabs in om uw verbruik te bekijken.");
+
+
+        ArrayList energyList = new Energy().getEnergy(customer.getId());
+        ArrayList gasList = new Gas().getGas(customer.getId());
+        ArrayList usageList = new Usage().getUsage(customer.getId());
+
 
         // Define value string
         String value = "";
@@ -61,37 +68,35 @@ public class DashboardScreen {
         // define price float
         Float price = (float)0;
 
-        // Get all lists (Energy, Gas, Usage)
-        ArrayList usageList = Usage.getInstance();
-        ArrayList gasList = Gas.getInstance();
-        ArrayList energyList = Energy.getInstance();
-
         // Get deposit
-        String deposit = Customer.getInstance().getDeposit();
+        String deposit = customer.getDeposit();
 
         // Check if deposit is not null or empty
         if(!deposit.isEmpty() || deposit != null) {
             value = "Geen data beschikbaar";
         }
 
-        // calculate is deposit would cover the price per week Usage
-        for (int i = 0; i < usageList.size(); i++) {
+        // Check if the lists are empty
+        if(energyList.isEmpty() || gasList.isEmpty() || usageList.isEmpty()) {
+            value = "Geen data beschikbaar";
+        } else {
+            // Loop through all usage values
+            for(int i = 0; i < usageList.size(); i++) {
 
-            weeks++;
-            // get usage data
-            Usage usage = (Usage) usageList.get(i);
+                weeks++;
+                // get usage data
+                Usage usage = (Usage) usageList.get(i);
 
-            // get energy price
-            Energy energy = (Energy) energyList.get(i);
+                // get energy price
+                Energy energy = (Energy) energyList.get(i);
 
-            // get gas price
-            Gas gas = (Gas) gasList.get(i);
+                // get gas price
+                Gas gas = (Gas) gasList.get(i);
 
-            // calculate price
-            price = price + calculatePrice(energy.getEnergyUsage(), gas.getGasUsage(), usage.getEnergyUsage(), usage.getGasUsage());
+                // calculate price
+                price = price + calculatePrice(energy.getEnergyUsage(), gas.getGasUsage(), usage.getEnergyUsage(), usage.getGasUsage());
+            }
         }
-
-
 
         // If price is lower than deposit, show warning
         if((price/Float.parseFloat(deposit)) < 52) {
